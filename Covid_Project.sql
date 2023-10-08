@@ -7,7 +7,7 @@ order by 3,4
 --From [Portfolio Project].dbo.CovidVaccinations$
 --order by 3,4
 
---Selecting Data I going to use
+--Selecting Data I'm going to use
 
 Select location, date, total_cases, total_cases_per_million, new_cases,total_deaths,population
 From [Portfolio Project].dbo.CovidDeaths$ 
@@ -15,7 +15,7 @@ Where continent is not null
 order by 1,2
  
 
- -- Looking Total Case vs Total Deaths
+ -- Looking at Total Cases vs Total Deaths
 
 Select location, date, total_cases, total_cases_per_million, total_deaths, (CONVERT(float, total_deaths) / NULLIF(CONVERT(float, total_cases), 0)) * 100 AS Deathpercentage
 From [Portfolio Project].dbo.CovidDeaths$ 
@@ -30,14 +30,14 @@ From [Portfolio Project].dbo.CovidDeaths$
 Where continent is not null
 order by 1,2
 
---Countries with highest infection rate comperd to population
+--Countries with the highest infection rate compared to the population
 Select location, population, Max(total_cases) As Highest_Infection_Count, Max((CONVERT(float, total_cases) / NULLIF(CONVERT(float, population), 0))) * 100 AS Percentage_of_population_infected
 From [Portfolio Project].dbo.CovidDeaths$ 
 Where continent is not null
 Group by location, population
 order by Percentage_of_population_infected desc
 
---Countries highest death count per populaton
+--Countries highest death count per population
 Select location, Max(cast(total_deaths as int)) As Total_death_Count
 From [Portfolio Project].dbo.CovidDeaths$ 
 Where continent is not null
